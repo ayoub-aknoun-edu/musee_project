@@ -1,0 +1,9 @@
+package com.musee_backend.models;
+
+public enum TypesAssurance {
+    ASSURANCE_TOUS_RISQUES,
+    ASSURANCE_TRANSPORT,
+    ASSURANCE_EPOSITION,
+    ASSURANCE_CONSERVATION,
+    ASSURANCE_RESPONSABILITE_CIVILE
+}
