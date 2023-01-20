@@ -1,15 +1,15 @@
 package com.musee_backend;
 
-import com.musee_backend.models.Role;
-import com.musee_backend.models.User;
-import com.musee_backend.repositories.RoleRepo;
-import com.musee_backend.repositories.UserRepo;
+import com.musee_backend.models.*;
 import com.musee_backend.services.AccountServiceImpl;
+import com.musee_backend.services.AdminServicesImpl;
+import com.musee_backend.services.GeneralServeces;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,15 +21,29 @@ public class MuseeBackendApplication {
     }
 
     @Bean
-    CommandLineRunner start(AccountServiceImpl accountService){
+    CommandLineRunner start(AccountServiceImpl accountService, AdminServicesImpl adminServices, GeneralServeces generalServeces){
         return args -> {
             accountService.createNewRole(new Role(null,"ADMIN"));
             accountService.createNewRole(new Role(null,"USER"));
             accountService.createNewUser(new User(null,"ayoubaknoun","123UYIY1","ayoub.akno@gmail.com","ayoub","aknoun","95982775",new HashSet<>()));
             accountService.addRoleToUser("ayoubaknoun","ADMIN");
             accountService.addRoleToUser("ayoubaknoun","USER");
+            Artiste artist = new Artiste();
+            artist.setLastName("melodi");
+            artist.setFirstName("adil");
+            artist.setAdresse("maroc de merdre");
+            adminServices.createArtiste(artist);
+            Condition condition1= new Condition(null,"condition1");
+            Condition condition2= new Condition(null,"condition2");
+            adminServices.createCondition(condition1);
+            adminServices.createCondition(condition2);
+            Assurance assurance= new Assurance(null,TypesAssurance.ASSURANCE_EPOSITION, Set.of(condition1,condition2));
+            adminServices.createAssurance(assurance);
+            Oeuvre oeuvre= new Oeuvre(null,"Fragonard",TypeOeuvre.SCULPTURE,generalServeces.getArtistByFLnames("adil","melodi"),assurance);
+            adminServices.createOeuvre(oeuvre);
+            adminServices.createArtiste(artist);
             accountService.getUsers().forEach(System.out::println);
-
+            generalServeces.getArtistes().forEach(System.out::println);
         };
 
 

@@ -1,22 +1,21 @@
 package com.musee_backend.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter @Setter @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 @MappedSuperclass
+@NoArgsConstructor
 public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
-    private String nom ;
-    private String prenom ;
+    @Column
+    private String lastName;
+    private String firstName ;
     private String adresse;
 
 }

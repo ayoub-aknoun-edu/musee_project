@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,8 +15,6 @@ import java.util.Set;
 public class MyUserDetails implements UserDetails {
 
     private User user ;
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

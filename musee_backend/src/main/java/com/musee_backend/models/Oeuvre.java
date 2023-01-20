@@ -1,12 +1,12 @@
 package com.musee_backend.models;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter @Setter @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Oeuvre {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Oeuvre {
     private String name;
     private TypeOeuvre type;
     @ManyToOne
-    @JoinColumn(name = "Artiste_id")
+    @JoinColumn(name = "artiste_id")
     private Artiste proprietaire;
     @OneToOne
     @JoinColumn(name = "assurance_numero")
