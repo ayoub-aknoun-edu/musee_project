@@ -20,5 +20,8 @@ public class Oeuvre {
     @JoinColumn(name = "assurance_numero")
     private Assurance assurance;
 
+    @OneToOne
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
 
 }

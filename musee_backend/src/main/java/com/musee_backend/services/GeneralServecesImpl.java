@@ -5,6 +5,7 @@ import com.musee_backend.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,25 +32,25 @@ public class GeneralServecesImpl implements GeneralServeces {
     }
 
     @Override
-    public List<Oeuvre> getOeuvreByType(TypeOeuvre typeOeuvre) {
-      return oeuvreReository.findAll()
-                            .stream()
-                            .filter(oeuvre -> oeuvre.getType()==typeOeuvre)
-                            .toList();
-
+    public List<Oeuvre> getOeuvreByType(String typeOeuvre) {
+        return oeuvreReository.findOeuvresByType(Enum.valueOf(TypeOeuvre.class,typeOeuvre));
     }
-
     @Override
     public List<Oeuvre> getOeuvreByArtiste(String firstname,String lasname)
     {
-        return oeuvreReository.findAll()
-                                .stream()
-                                .filter(oeuvre -> oeuvre.getProprietaire().getLastName().equals(lasname)&& oeuvre.getProprietaire().getFirstName().equals(firstname))
-                                .toList();
-    }
+        Artiste artiste = artisteRepository.findByFirstNameAndLastName(firstname,lasname).orElse(null);
+        if (artiste==null)
+            return new ArrayList<>();
+        else {
+            return oeuvreReository.findAll()
+                    .stream()
+                    .filter(oeuvre -> oeuvre.getProprietaire().getLastName().equals(lasname) && oeuvre.getProprietaire().getFirstName().equals(firstname))
+                    .toList();
+        }}
 
     @Override
     public List<Conference> getConferences() {
+
         return conferanceRepository.findAll();
     }
 

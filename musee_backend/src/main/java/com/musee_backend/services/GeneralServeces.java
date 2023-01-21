@@ -8,7 +8,7 @@ public interface GeneralServeces {
     List<Oeuvre> getOeuvres();
     List<Artiste> getArtistes();
 
-    List<Oeuvre> getOeuvreByType(TypeOeuvre typeOeuvre);
+    List<Oeuvre> getOeuvreByType(String typeOeuvre);
 
     List<Oeuvre> getOeuvreByArtiste(String firstname,String lasname);
 

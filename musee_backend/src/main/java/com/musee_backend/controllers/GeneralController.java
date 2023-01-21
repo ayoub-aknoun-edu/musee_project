@@ -2,14 +2,13 @@ package com.musee_backend.controllers;
 
 import com.musee_backend.models.Artiste;
 import com.musee_backend.models.Oeuvre;
-import com.musee_backend.repositories.ArtisteRepository;
-import com.musee_backend.services.GeneralServeces;
+import com.musee_backend.services.AdminServicesImpl;
+import com.musee_backend.services.GeneralServecesImpl;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -17,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/")
 public class GeneralController {
-    private GeneralServeces generalServeces;
-
+    private GeneralServecesImpl generalServeces;
+    private AdminServicesImpl adminServices;
 
 
     @GetMapping ("home")
@@ -34,5 +33,16 @@ public class GeneralController {
     public List<Oeuvre> getOeuvres(){
         return generalServeces.getOeuvres();
     }
+
+    @GetMapping("oeuvres/{type}")
+    public List<Oeuvre> getOeuvresType(@PathVariable("type") String type){
+        return generalServeces.getOeuvreByType(type);
+    }
+
+    @GetMapping("oeuvresbyartiste")
+    public  List<Oeuvre> getOeuvres_Artiste(@RequestBody LinkedHashMap<String,String> body){
+       return generalServeces.getOeuvreByArtiste(body.get("firstName"),body.get("lastName"));
+    }
+
 
 }

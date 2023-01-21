@@ -1,10 +1,7 @@
 package com.musee_backend.models;
 
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +11,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor @NoArgsConstructor
 @Entity
 
 public class Theme {

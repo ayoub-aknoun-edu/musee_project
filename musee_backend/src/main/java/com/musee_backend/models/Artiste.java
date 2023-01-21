@@ -20,7 +20,7 @@ public class Artiste extends Person{
 
     @JsonIgnore
     @OneToMany(targetEntity = Oeuvre.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "ouver")
+
     private Set<Oeuvre> Oeuvres;
 
     @Override

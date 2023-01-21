@@ -38,9 +38,10 @@ public class MuseeBackendApplication {
             adminServices.createCondition(condition1);
             adminServices.createCondition(condition2);
             Assurance assurance= new Assurance(null,TypesAssurance.ASSURANCE_EPOSITION, Set.of(condition1,condition2));
-            adminServices.createAssurance(assurance);
-            Oeuvre oeuvre= new Oeuvre(null,"Fragonard",TypeOeuvre.SCULPTURE,generalServeces.getArtistByFLnames("adil","melodi"),assurance);
-            adminServices.createOeuvre(oeuvre);
+             assurance=adminServices.createAssurance(assurance);
+            Theme theme = adminServices.createTheme(new Theme(null,"Theme 1"));
+            OeuvreCrObject oeuvreCrObject= new OeuvreCrObject("Fragonard",TypeOeuvre.SCULPTURE,generalServeces.getArtistByFLnames("adil","melodi").getId(),assurance.getNumero(),theme.getId());
+            adminServices.createOeuvre(oeuvreCrObject);
             adminServices.createArtiste(artist);
             accountService.getUsers().forEach(System.out::println);
             generalServeces.getArtistes().forEach(System.out::println);

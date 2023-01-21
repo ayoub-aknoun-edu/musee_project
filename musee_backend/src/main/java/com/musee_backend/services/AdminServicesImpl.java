@@ -3,6 +3,7 @@ package com.musee_backend.services;
 import com.musee_backend.models.*;
 import com.musee_backend.repositories.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -18,6 +19,12 @@ public class AdminServicesImpl implements AdminServices {
     private ConferanceRepository conferanceRepository;
     private ConditionRepository conditionRepository;
     private  AssuranceRepository assuranceRepository;
+    private final ThemeRepository themeRepository;
+
+    @Override
+    public Theme createTheme(Theme theme) {
+        return themeRepository.save(theme);
+    }
 
     @Override
     public Artiste getArtistById(Long id) {
@@ -25,18 +32,36 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public Oeuvre createOeuvre(Oeuvre oeuvre) {
-        return oeuvreReository.save(oeuvre);
-    }
-
-    @Override
-    public Oeuvre modifyOeuvre(Oeuvre oeuvre) {
+    public Oeuvre createOeuvre(OeuvreCrObject oeuvre) {
+        Artiste artiste = artisteRepository.findById(oeuvre.getArtisteId()).orElse(null);
+        Assurance assurance = assuranceRepository.findById(oeuvre.getAssuranceId()).orElse(null);
+        Theme theme = themeRepository.findById(oeuvre.getThemeId()).orElse(null);
+        if(artiste!=null && assurance!=null && theme!= null) {
+            Oeuvre newOeuvre = new Oeuvre(null, oeuvre.getName(), oeuvre.getType(), artiste, assurance, theme);
+            return oeuvreReository.save(newOeuvre);
+        }
         return null;
     }
 
     @Override
-    public int deleteOeuvre(Long id) {
-        return 0;
+    public Oeuvre modifyOeuvre(Long id,Oeuvre modifiedOeuvre) {
+        Oeuvre oeuvre = oeuvreReository.findById(id).orElseThrow(()->new ResourceNotFoundException("Oeuvre"));
+        oeuvre.setName(modifiedOeuvre.getName());
+        oeuvre.setAssurance(modifiedOeuvre.getAssurance());
+        oeuvre.setProprietaire(modifiedOeuvre.getProprietaire());
+        oeuvre.setType(modifiedOeuvre.getType());
+        return oeuvreReository.save(oeuvre);
+
+    }
+
+    @Override
+    public boolean deleteOeuvre(Long id) {
+        Oeuvre oeuvre = oeuvreReository.findById(id).orElse(null);
+        if(oeuvre!=null) {
+            oeuvreReository.delete(oeuvre);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -50,8 +75,13 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public int deleteArtiste(Long id) {
-        return 0;
+    public boolean deleteArtiste(Long id) {
+        Artiste artiste = artisteRepository.findById(id).orElse(null);
+        if (artiste!=null){
+            artisteRepository.delete(artiste);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -65,8 +95,13 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public int deleteConferencier(Long id) {
-        return 0;
+    public boolean deleteConferencier(Long id) {
+        Conferencier conferencier = conferencierRepository.findById(id).orElse(null);
+        if (conferencier!=null){
+            conferencierRepository.delete(conferencier);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -82,6 +117,11 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public Condition createCondition(Condition condition) {
         return conditionRepository.save(condition);
+    }
+
+    @Override
+    public Condition getCondition(Long id) {
+        return  conditionRepository.findById(id).orElse(null);
     }
 
     @Override

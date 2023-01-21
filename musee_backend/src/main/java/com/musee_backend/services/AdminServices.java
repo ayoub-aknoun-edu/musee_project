@@ -6,21 +6,23 @@ import java.util.Date;
 import java.util.HashMap;
 
 public interface AdminServices {
+    Theme createTheme(Theme theme);
     Artiste getArtistById(Long id);
-    Oeuvre createOeuvre(Oeuvre oeuvre);
-    Oeuvre modifyOeuvre(Oeuvre oeuvre);
-    int deleteOeuvre(Long id);
+    Oeuvre createOeuvre(OeuvreCrObject oeuvre);
+    Oeuvre modifyOeuvre(Long id,Oeuvre oeuvre);
+    boolean deleteOeuvre(Long id);
 
     Artiste createArtiste(Artiste artiste);
     Artiste modifyArtiste(Artiste artiste);
-    int deleteArtiste(Long id);
+    boolean deleteArtiste(Long id);
 
     Artiste createConferencier(Conferencier conferencier);
     Artiste modifyConferencier(Conferencier conferencier);
-    int deleteConferencier(Long id);
+    boolean deleteConferencier(Long id);
 
     HashMap<Date, Evenement> getCalendar();
     Evenement getEvent(Date date);
     Condition createCondition(Condition condition);
+    Condition getCondition(Long id);
     Assurance createAssurance(Assurance assurance);
 }
