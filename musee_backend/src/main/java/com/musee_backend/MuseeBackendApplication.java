@@ -40,7 +40,7 @@ public class MuseeBackendApplication {
             Assurance assurance= new Assurance(null,TypesAssurance.ASSURANCE_EPOSITION, Set.of(condition1,condition2));
              assurance=adminServices.createAssurance(assurance);
             Theme theme = adminServices.createTheme(new Theme(null,"Theme 1"));
-            OeuvreCrObject oeuvreCrObject= new OeuvreCrObject("Fragonard",TypeOeuvre.SCULPTURE,generalServeces.getArtistByFLnames("adil","melodi").getId(),assurance.getNumero(),theme.getId());
+            OeuvreCrObject oeuvreCrObject= new OeuvreCrObject("Fragonard",TypeOeuvre.SCULPTURE,generalServeces.getArtistByFLnames("adil","melodi").getId(),assurance.getNumero(),theme.getId(),"The Starry Night is an oil on canvas painting that depicts the view from the east-facing window of Van Gogh's asylum room at Saint-Paul-de-Mausole, just before sunrise. The painting is famous for its swirling, dynamic sky and the thickly impastoed texture of the paint.");
             adminServices.createOeuvre(oeuvreCrObject);
             adminServices.createArtiste(artist);
             accountService.getUsers().forEach(System.out::println);

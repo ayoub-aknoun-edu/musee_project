@@ -16,8 +16,8 @@ public interface AdminServices {
     Artiste modifyArtiste(Artiste artiste);
     boolean deleteArtiste(Long id);
 
-    Artiste createConferencier(Conferencier conferencier);
-    Artiste modifyConferencier(Conferencier conferencier);
+    Conferencier createConferencier(Conferencier conferencier);
+    Conferencier modifyConferencier(Conferencier conferencier);
     boolean deleteConferencier(Long id);
 
     HashMap<Date, Evenement> getCalendar();

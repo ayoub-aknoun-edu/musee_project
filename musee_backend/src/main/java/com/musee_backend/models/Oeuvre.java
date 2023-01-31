@@ -13,6 +13,7 @@ public class Oeuvre {
     private Long id;
     private String name;
     private TypeOeuvre type;
+
     @ManyToOne
     @JoinColumn(name = "artiste_id")
     private Artiste proprietaire;
@@ -23,5 +24,5 @@ public class Oeuvre {
     @OneToOne
     @JoinColumn(name = "theme_id")
     private Theme theme;
-
+    private String description;
 }

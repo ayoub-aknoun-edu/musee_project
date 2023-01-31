@@ -4,17 +4,14 @@ package com.musee_backend.controllers;
 import com.musee_backend.models.*;
 import com.musee_backend.services.AdminServicesImpl;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.LifecycleState;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/admin/dashboard")
 @RestController
 public class AdminController {
     private AdminServicesImpl adminServices;
@@ -44,6 +41,11 @@ public class AdminController {
     @PostMapping("oeuvre/assurance/condition")
     public Condition createCondition(@RequestBody Condition condition){
         return  adminServices.createCondition(condition);
+    }
+
+    @PostMapping("artiste")
+    public Artiste  Artiste(@RequestBody LinkedHashMap<String,Object>, ){
+
     }
 
 }

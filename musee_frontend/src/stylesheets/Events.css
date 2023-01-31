@@ -1,0 +1,16 @@
+.bg_Image{
+    position: relative;
+    background-image: url('../assets//images/Background\ Image\ 1.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 65vh;
+}
+.over_lay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}

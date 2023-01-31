@@ -13,4 +13,5 @@ public class OeuvreCrObject {
     private Long assuranceId;
     private Long artisteId;
     private Long themeId;
+    private String description;
 }

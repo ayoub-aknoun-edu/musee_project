@@ -37,7 +37,7 @@ public class AdminServicesImpl implements AdminServices {
         Assurance assurance = assuranceRepository.findById(oeuvre.getAssuranceId()).orElse(null);
         Theme theme = themeRepository.findById(oeuvre.getThemeId()).orElse(null);
         if(artiste!=null && assurance!=null && theme!= null) {
-            Oeuvre newOeuvre = new Oeuvre(null, oeuvre.getName(), oeuvre.getType(), artiste, assurance, theme);
+            Oeuvre newOeuvre = new Oeuvre(null, oeuvre.getName(), oeuvre.getType(), artiste, assurance, theme,oeuvre.getDescription());
             return oeuvreReository.save(newOeuvre);
         }
         return null;
@@ -85,12 +85,12 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public Artiste createConferencier(Conferencier conferencier) {
+    public Conferencier createConferencier(Conferencier conferencier) {
         return null;
     }
 
     @Override
-    public Artiste modifyConferencier(Conferencier conferencier) {
+    public Conferencier modifyConferencier(Conferencier conferencier) {
         return null;
     }
 
