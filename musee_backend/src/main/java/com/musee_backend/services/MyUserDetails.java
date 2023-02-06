@@ -21,7 +21,7 @@ public class MyUserDetails implements UserDetails {
         Set<Role> roles =user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role:roles)
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorities.add(new SimpleGrantedAuthority(role.getName().toString()));
         return authorities;
     }
 

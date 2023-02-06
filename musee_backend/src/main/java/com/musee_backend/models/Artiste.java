@@ -1,12 +1,14 @@
 package com.musee_backend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -25,10 +27,13 @@ public class Artiste extends Person{
     private Set<Oeuvre> Oeuvres;
 
     private String description;
-    private Date birthYear;
-    private Date deathYear;
-    @Lob
-    private byte[] image ;
+    @JsonFormat(pattern = "yyyy")
+    private LocalDate birthYear;
+    @JsonFormat(pattern = "yyyy")
+
+    private LocalDate deathYear;
+
+    private String imageLink ;
     @Override
     public String toString() {
         return super.toString().substring(0,super.toString().length()-2)+", oeuvres:"+this.getOeuvres();

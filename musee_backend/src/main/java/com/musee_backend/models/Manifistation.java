@@ -1,11 +1,13 @@
 package com.musee_backend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +17,8 @@ import java.util.List;
 @AttributeOverride(name = "id", column = @Column(name="id"))
 public class Manifistation extends Evenement{
 
+
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "theme_id")

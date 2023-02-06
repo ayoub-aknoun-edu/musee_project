@@ -13,13 +13,15 @@ import java.util.HashMap;
 @Transactional
 @Service
 public class AdminServicesImpl implements AdminServices {
-    private ArtisteRepository artisteRepository;
-    private OeuvreReository oeuvreReository;
-    private ConferencierRepository conferencierRepository;
-    private ConferanceRepository conferanceRepository;
-    private ConditionRepository conditionRepository;
-    private  AssuranceRepository assuranceRepository;
+    private final ArtisteRepository artisteRepository;
+    private final OeuvreReository oeuvreReository;
+    private final ConferencierRepository conferencierRepository;
+    private final ConferanceRepository conferanceRepository;
+    private final ConditionRepository conditionRepository;
+    private final AssuranceRepository assuranceRepository;
     private final ThemeRepository themeRepository;
+    private final EventRepository eventRepository;
+    private final ManifistationRepository manifistationRepository;
 
     @Override
     public Theme createTheme(Theme theme) {
@@ -37,19 +39,18 @@ public class AdminServicesImpl implements AdminServices {
         Assurance assurance = assuranceRepository.findById(oeuvre.getAssuranceId()).orElse(null);
         Theme theme = themeRepository.findById(oeuvre.getThemeId()).orElse(null);
         if(artiste!=null && assurance!=null && theme!= null) {
-            Oeuvre newOeuvre = new Oeuvre(null, oeuvre.getName(), oeuvre.getType(), artiste, assurance, theme,oeuvre.getDescription());
+            Oeuvre newOeuvre = new Oeuvre(null, oeuvre.getName(), oeuvre.getType(), artiste, assurance, theme,oeuvre.getDescription(),oeuvre.getImageLink());
             return oeuvreReository.save(newOeuvre);
         }
         return null;
     }
 
     @Override
-    public Oeuvre modifyOeuvre(Long id,Oeuvre modifiedOeuvre) {
+    public Oeuvre modifyOeuvre(Long id,OeuvreCrObject modifiedOeuvre) {
         Oeuvre oeuvre = oeuvreReository.findById(id).orElseThrow(()->new ResourceNotFoundException("Oeuvre"));
         oeuvre.setName(modifiedOeuvre.getName());
-        oeuvre.setAssurance(modifiedOeuvre.getAssurance());
-        oeuvre.setProprietaire(modifiedOeuvre.getProprietaire());
         oeuvre.setType(modifiedOeuvre.getType());
+        oeuvre.setImageLink(modifiedOeuvre.getImageLink());
         return oeuvreReository.save(oeuvre);
 
     }
@@ -70,8 +71,11 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public Artiste modifyArtiste(Artiste artiste) {
-        return null;
+    public Artiste modifyArtiste(Long id,Artiste artiste) {
+        Artiste oldArtiste = artisteRepository.findById(id).orElse(null);
+        artiste.setId(id);
+        artiste.setImageLink(artiste.getImageLink());
+        return artisteRepository.save(artiste);
     }
 
     @Override
@@ -104,13 +108,9 @@ public class AdminServicesImpl implements AdminServices {
         return false;
     }
 
-    @Override
-    public HashMap<Date, Evenement> getCalendar() {
-        return null;
-    }
 
     @Override
-    public Evenement getEvent(Date date) {
+    public Event getEventByDate(Date date) {
         return null;
     }
 
@@ -127,5 +127,54 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public Assurance createAssurance(Assurance assurance) {
         return assuranceRepository.save(assurance);
+    }
+
+    @Override
+    public Event createEvent(Event event) {
+        return eventRepository.save(event);
+    }
+
+    @Override
+    public Event getEventById(Long id) {
+        return  eventRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Event modifieEvent(Long id,Event event) {
+        event.setId(id);
+        return eventRepository.save(event);
+    }
+
+    @Override
+    public Boolean deleteEvent(Long id) {
+        Event event = eventRepository.findById(id).orElse(null);
+        if (event!=null){
+            eventRepository.delete(event);
+            return true;
+        }
+        return false;
+    }
+
+
+    // manifistation
+    @Override
+    public Manifistation createManifistation(Manifistation manifistation) {
+        return manifistationRepository.save(manifistation);
+    }
+
+    @Override
+    public Manifistation modefieManifistation(Long id, Manifistation manifistation) {
+        manifistation.setId(id);
+        return manifistationRepository.save(manifistation);
+    }
+
+    @Override
+    public Boolean deleteManifistation(Long id) {
+        Manifistation manifistation = manifistationRepository.findById(id).orElse(null);
+        if(manifistation!=null) {
+            manifistationRepository.delete(manifistation);
+            return true;
+        }
+        return false;
     }
 }

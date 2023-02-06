@@ -15,6 +15,8 @@ public interface GeneralServeces {
     List<Conference> getConferences();
 
     List<Manifistation> getManifestations();
+    List<Event> getEvents();
 
     Artiste getArtistByFLnames(String firstName, String lastName);
+
 }

@@ -25,4 +25,6 @@ public class Oeuvre {
     @JoinColumn(name = "theme_id")
     private Theme theme;
     private String description;
+
+    private String imageLink;
 }

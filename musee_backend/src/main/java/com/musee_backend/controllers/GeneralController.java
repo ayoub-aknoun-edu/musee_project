@@ -1,10 +1,13 @@
 package com.musee_backend.controllers;
 
 import com.musee_backend.models.Artiste;
+import com.musee_backend.models.Event;
+import com.musee_backend.models.Manifistation;
 import com.musee_backend.models.Oeuvre;
 import com.musee_backend.services.AdminServicesImpl;
 import com.musee_backend.services.GeneralServecesImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.http.server.reactive.AbstractListenerWriteFlushProcessor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,7 +27,6 @@ public class GeneralController {
     public String home(){
         return "This is the home page ";
     }
-
     @GetMapping("artistes")
     public List<Artiste> getArtistes(){
         return generalServeces.getArtistes();
@@ -42,6 +44,14 @@ public class GeneralController {
     @GetMapping("oeuvresbyartiste")
     public  List<Oeuvre> getOeuvres_Artiste(@RequestBody LinkedHashMap<String,String> body){
        return generalServeces.getOeuvreByArtiste(body.get("firstName"),body.get("lastName"));
+    }
+    @GetMapping("events")
+    public List<Event> getEvents(){
+        return generalServeces.getEvents();
+    }
+    @GetMapping("manifistations")
+    public List<Manifistation> getManifistations(){
+        return  generalServeces.getManifestations();
     }
 
 

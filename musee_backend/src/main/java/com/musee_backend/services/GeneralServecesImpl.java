@@ -3,6 +3,7 @@ package com.musee_backend.services;
 import com.musee_backend.models.*;
 import com.musee_backend.repositories.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class GeneralServecesImpl implements GeneralServeces {
    private ConferencierRepository conferencierRepository;
    private ConferanceRepository conferanceRepository;
    private ManifistationRepository manifistationRepository;
+   private EventRepository eventRepository;
 
    private UserRepository userRepository;
     @Override
@@ -58,6 +60,11 @@ public class GeneralServecesImpl implements GeneralServeces {
     public List<Manifistation> getManifestations() {
 
         return manifistationRepository.findAll();
+    }
+
+    @Override
+    public List<Event> getEvents() {
+        return eventRepository.findAll(Sort.by("date"));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.musee_backend.services;
 
 import com.musee_backend.models.Role;
+import com.musee_backend.models.RoleName;
 import com.musee_backend.models.User;
 import com.musee_backend.repositories.RoleRepository;
 import com.musee_backend.repositories.UserRepository;
@@ -58,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean addRoleToUser(String username, String rolename) {
         User user = userRepository.findByUsername(username).orElse(null);
-        Role role = roleRepository.findRoleByName(rolename).orElse(null);
+        Role role = roleRepository.findRoleByName(RoleName.valueOf(rolename)).orElse(null);
         if( user!=null && role != null ){
             if(user.getRoles().add(role)){
                 userRepository.save(user);
@@ -83,7 +84,6 @@ public class AccountServiceImpl implements AccountService {
         if (userExist!=null) {
             userExist.setFirstName(user.getFirstName());
             userExist.setLastName(user.getLastName());
-            userExist.setPhone(user.getPhone());
         return userRepository.save(userExist);
         }else throw new RuntimeException("user not found");
     }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.persistence.Lob;
+
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class OeuvreCrObject {
     private String name;
@@ -14,4 +16,6 @@ public class OeuvreCrObject {
     private Long artisteId;
     private Long themeId;
     private String description;
+
+    private String imageLink ;
 }
